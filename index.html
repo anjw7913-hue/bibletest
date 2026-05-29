@@ -3,26 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>성구 암송</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<title>성구 암송 · 요한계시록</title>
+<meta name="description" content="요한계시록 성구 10개 암송 훈련 프로그램 — 읽기, 연습, 완전 암송 3단계 학습">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fafaf8;
+    --bg: #f5f3ee;
     --surface: #ffffff;
-    --border: #e8e6e0;
-    --border-strong: #d0cdc4;
-    --text: #1c1b18;
-    --text-muted: #8a8880;
-    --text-light: #b5b2aa;
-    --accent: #3d6b4f;
-    --accent-light: #e8f0eb;
-    --accent-muted: #6a9478;
-    --danger: #c0392b;
-    --danger-light: #fdf0ef;
-    --success: #2e7d5e;
-    --success-light: #eef6f1;
+    --surface2: #eeeae3;
+    --border: #e0dcd4;
+    --border-strong: #c4bfb4;
+    --text: #18170f;
+    --text-muted: #78756e;
+    --text-light: #aeaaa2;
+    --accent: #3a6648;
+    --accent2: #56845f;
+    --accent-light: #e4eeea;
+    --accent-pale: #eff6f2;
+    --gold: #a07612;
+    --gold-light: #fdf5e0;
+    --danger: #b22e2e;
+    --danger-light: #fdf0f0;
+    --success: #276e4a;
+    --success-light: #ecf6f0;
+    --warn: #b86820;
+    --warn-light: #fdf2e4;
+    --radius: 14px;
+    --radius-sm: 9px;
+    --shadow: 0 2px 14px rgba(0,0,0,0.07);
+    --shadow-lg: 0 8px 36px rgba(0,0,0,0.11);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
@@ -34,531 +46,1025 @@
     align-items: center;
   }
 
-  /* Header */
+  /* ─── Animations ─── */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(14px); }
+    to   { opacity:1; transform:none; }
+  }
+  @keyframes pop {
+    0%  { transform:scale(0.94); opacity:0; }
+    55% { transform:scale(1.02); }
+    100%{ transform:scale(1);   opacity:1; }
+  }
+  @keyframes shake {
+    0%,100%{ transform:translateX(0); }
+    20%    { transform:translateX(-7px); }
+    40%    { transform:translateX(7px); }
+    60%    { transform:translateX(-4px); }
+    80%    { transform:translateX(4px); }
+  }
+  @keyframes glow {
+    0%  { box-shadow:0 0 0 0 rgba(58,102,72,.45); }
+    70% { box-shadow:0 0 0 10px rgba(58,102,72,0); }
+    100%{ box-shadow:0 0 0 0 rgba(58,102,72,0); }
+  }
+  @keyframes slideRight {
+    from { opacity:0; transform:translateX(24px); }
+    to   { opacity:1; transform:none; }
+  }
+
+  .hidden { display:none !important; }
+  .screen { animation: fadeUp 0.32s ease; }
+
+  /* ─── Header ─── */
   .header {
-    width: 100%;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 28px 24px 24px;
-    text-align: center;
+    width:100%; background:var(--surface);
+    border-bottom:1px solid var(--border);
+    padding:20px 20px 18px;
+    display:flex; align-items:center; gap:14px;
+    position:sticky; top:0; z-index:100;
   }
-  .header-label {
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 8px;
+  .hdr-back {
+    width:36px; height:36px; border-radius:50%;
+    background:var(--surface2); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:1rem; flex-shrink:0;
+    transition:background .15s, transform .1s;
+    user-select:none;
   }
-  .header h1 {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: 0.04em;
+  .hdr-back:hover { background:var(--border); transform:scale(1.08); }
+  .hdr-center { flex:1; text-align:center; }
+  .hdr-eyebrow {
+    font-size:.62rem; font-weight:500; letter-spacing:.18em;
+    color:var(--accent); text-transform:uppercase; margin-bottom:3px;
   }
-  .header p {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin-top: 5px;
+  .hdr-title {
+    font-family:'Noto Serif KR',serif;
+    font-size:1.1rem; font-weight:600; color:var(--text);
+  }
+  .hdr-spacer { width:36px; flex-shrink:0; }
+
+  .container { width:100%; max-width:660px; padding:28px 18px 88px; }
+
+  /* ─── Section header ─── */
+  .sec-eyebrow {
+    font-size:.62rem; font-weight:500; letter-spacing:.16em;
+    color:var(--text-light); text-transform:uppercase; margin-bottom:5px;
+  }
+  .sec-title {
+    font-family:'Noto Serif KR',serif;
+    font-size:1.22rem; font-weight:600; color:var(--text);
+    margin-bottom:22px; line-height:1.55;
   }
 
-  .container { width: 100%; max-width: 720px; padding: 40px 24px 80px; }
+  /* ─── Scripture Select Cards (multi-select) ─── */
+  .sel-toolbar {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:12px;
+  }
+  .sel-count-pill {
+    font-size:.72rem; font-weight:600;
+    background:var(--accent-light); color:var(--accent);
+    border-radius:20px; padding:4px 12px;
+    border:1px solid rgba(58,102,72,.2);
+    transition:all .2s;
+  }
+  .sel-count-pill.none { background:var(--surface2); color:var(--text-light); border-color:var(--border); }
+  .sel-toolbar-btns { display:flex; gap:6px; }
+  .btn-tiny {
+    font-size:.7rem; font-weight:500; padding:5px 11px;
+    border-radius:20px; cursor:pointer;
+    border:1.5px solid var(--border); background:var(--surface);
+    color:var(--text-muted); transition:all .15s;
+  }
+  .btn-tiny:hover { border-color:var(--accent); color:var(--accent); }
 
-  .screen { animation: fadeUp 0.3s ease; }
-  @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
-  .hidden { display: none !important; }
-
-  /* Step labels */
-  .step-label {
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    color: var(--text-light);
-    text-transform: uppercase;
-    margin-bottom: 6px;
+  .sc-list { display:flex; flex-direction:column; gap:9px; margin-bottom:6px; }
+  .sc-card {
+    background:var(--surface); border:1.5px solid var(--border);
+    border-radius:var(--radius); padding:14px 16px;
+    cursor:pointer; display:flex; align-items:center; gap:13px;
+    transition:border-color .18s, box-shadow .18s, transform .12s;
+    user-select:none;
   }
-  .step-title {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 28px;
+  .sc-card:hover { border-color:var(--accent2); box-shadow:var(--shadow); transform:translateY(-1px); }
+  .sc-card.sel {
+    border-color:var(--accent); background:var(--accent-pale);
+    box-shadow:0 0 0 3px rgba(58,102,72,.12);
   }
-
-  /* Selection Cards */
-  .card-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 32px; }
-  .sel-card {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 20px 14px;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-    text-align: center;
+  .sc-num-badge {
+    width:36px; height:36px; border-radius:9px; flex-shrink:0;
+    background:var(--surface2); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Noto Serif KR',serif; font-size:.88rem; font-weight:700;
+    color:var(--text-muted); transition:all .18s;
   }
-  .sel-card:hover { border-color: var(--border-strong); }
-  .sel-card.active { border-color: var(--accent); background: var(--accent-light); }
-  .card-num {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: var(--text);
-    display: block;
-    margin-bottom: 5px;
+  .sc-card.sel .sc-num-badge {
+    background:var(--accent); border-color:var(--accent); color:#fff;
   }
-  .sel-card.active .card-num { color: var(--accent); }
-  .card-sub { font-size: 0.7rem; color: var(--text-muted); line-height: 1.6; }
-  .card-desc { font-size: 0.74rem; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
-  .diff-icon { font-size: 1.15rem; display: block; margin-bottom: 4px; }
-  .card-verses { margin-top: 10px; text-align: left; display: flex; flex-direction: column; gap: 5px; }
-  .card-verse-item { display: flex; align-items: center; gap: 7px; }
-  .cv-num {
-    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em;
-    color: var(--accent); background: var(--accent-light);
-    border-radius: 3px; padding: 1px 5px; flex-shrink: 0;
-    font-family: 'Noto Sans KR', sans-serif;
+  .sc-info { flex:1; min-width:0; }
+  .sc-ref {
+    font-family:'Noto Serif KR',serif;
+    font-size:.9rem; font-weight:600; color:var(--text); margin-bottom:2px;
   }
-  .sel-card.active .cv-num { background: rgba(61,107,79,0.2); }
-  .cv-ref { font-size: 0.74rem; color: var(--text-muted); font-family: 'Noto Serif KR', serif; }
-
-  /* Buttons */
-  .btn-primary {
-    display: block; width: 100%; padding: 14px;
-    background: var(--accent);
-    color: #fff;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em;
-    border: none; border-radius: 6px; cursor: pointer;
-    transition: background 0.15s;
+  .sc-preview {
+    font-size:.68rem; color:var(--text-light); line-height:1.5;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
-  .btn-primary:hover { background: #2e5540; }
-  .btn-primary:disabled { background: var(--border); color: var(--text-light); cursor: not-allowed; }
-  .btn-secondary {
-    padding: 13px 20px;
-    background: transparent;
-    color: var(--text-muted);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 0.84rem;
-    border: 1.5px solid var(--border);
-    border-radius: 6px; cursor: pointer;
-    transition: border-color 0.15s, color 0.15s;
-    white-space: nowrap;
+  .sc-prog { text-align:right; flex-shrink:0; }
+  .sc-score {
+    font-family:'Noto Serif KR',serif;
+    font-size:.98rem; font-weight:700; color:var(--accent);
   }
-  .btn-secondary:hover { border-color: var(--border-strong); color: var(--text); }
-
-  /* Quiz header */
-  .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-  .quiz-meta { font-family: 'Noto Serif KR', serif; font-size: 0.9rem; font-weight: 600; color: var(--text); }
-  .badge {
-    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
-    color: var(--accent); background: var(--accent-light);
-    border: 1px solid #c4dace; padding: 3px 10px; border-radius: 20px;
+  .sc-score.none { font-size:.66rem; color:var(--text-light); font-family:'Noto Sans KR',sans-serif; font-weight:400; }
+  .sc-tries { font-size:.6rem; color:var(--text-light); margin-top:1px; }
+  .sc-check {
+    width:22px; height:22px; border-radius:6px;
+    border:2px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-size:.75rem; flex-shrink:0; transition:all .18s;
   }
-  .progress-bar { height: 2px; background: var(--border); border-radius: 1px; margin-bottom: 32px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--accent); border-radius: 1px; transition: width 0.4s ease; }
-
-  /* Scripture Group */
-  .scripture-group { margin-bottom: 40px; }
-  .scripture-title {
-    display: flex; align-items: baseline; gap: 12px;
-    margin-bottom: 12px; padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-  }
-  .scripture-title-num {
-    font-size: 0.66rem; font-weight: 500; letter-spacing: 0.14em;
-    color: var(--accent); text-transform: uppercase; flex-shrink: 0;
-  }
-  .scripture-title-ref {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 1rem; font-weight: 600; color: var(--text);
+  .sc-card.sel .sc-check {
+    background:var(--accent); border-color:var(--accent); color:#fff; border-radius:6px;
   }
 
-  /* Scripture block */
-  .scripture-block {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 16px 20px;
-    margin-bottom: 8px;
+  /* ─── Mode Cards ─── */
+  .mode-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
+  .mode-card {
+    background:var(--surface); border:1.5px solid var(--border);
+    border-radius:var(--radius); padding:20px 14px 16px;
+    cursor:pointer; text-align:center;
+    transition:border-color .2s, box-shadow .2s, transform .15s;
+    position:relative; overflow:hidden;
   }
-  .scripture-ref {
-    font-size: 0.66rem; font-weight: 500; letter-spacing: 0.12em;
-    color: var(--text-light); text-transform: uppercase; margin-bottom: 10px;
+  .mode-card::before {
+    content:''; position:absolute; inset:0; opacity:0;
+    transition:opacity .2s;
   }
-  .scripture-text {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 0.93rem; color: var(--text); line-height: 2.1; word-break: keep-all;
+  .mode-card.learn::before  { background:linear-gradient(135deg,var(--accent-pale),transparent); }
+  .mode-card.pract::before  { background:linear-gradient(135deg,var(--gold-light),transparent); }
+  .mode-card.recite::before { background:linear-gradient(135deg,var(--danger-light),transparent); }
+  .mode-card.wrong::before  { background:linear-gradient(135deg,var(--warn-light),transparent); }
+  .mode-card:hover:not(.off)::before { opacity:1; }
+  .mode-card:hover:not(.off) { border-color:var(--border-strong); box-shadow:var(--shadow); transform:translateY(-2px); }
+  .mode-card.off { opacity:.42; cursor:not-allowed; }
+  .mc-icon { font-size:1.9rem; margin-bottom:9px; position:relative; z-index:1; }
+  .mc-name {
+    font-family:'Noto Serif KR',serif;
+    font-size:.93rem; font-weight:600; color:var(--text);
+    margin-bottom:5px; position:relative; z-index:1;
+  }
+  .mc-desc { font-size:.7rem; color:var(--text-muted); line-height:1.65; position:relative; z-index:1; }
+  .mc-badge {
+    display:inline-block; margin-top:9px;
+    font-size:.6rem; font-weight:600; letter-spacing:.08em;
+    padding:3px 9px; border-radius:20px; position:relative; z-index:1;
+  }
+  .mc-badge.g  { background:var(--accent-light); color:var(--accent); }
+  .mc-badge.au { background:var(--gold-light);   color:var(--gold); }
+  .mc-badge.r  { background:var(--danger-light);  color:var(--danger); }
+  .mc-badge.w  { background:var(--warn-light);    color:var(--warn); }
+
+  /* ─── Buttons ─── */
+  .btn-p {
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%; padding:15px;
+    background:var(--accent); color:#fff;
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:.88rem; font-weight:500; letter-spacing:.03em;
+    border:none; border-radius:var(--radius-sm); cursor:pointer;
+    transition:background .15s, transform .1s;
+  }
+  .btn-p:hover  { background:#2b5038; }
+  .btn-p:active { transform:scale(.98); }
+  .btn-p:disabled { background:var(--border); color:var(--text-light); cursor:not-allowed; }
+
+  .btn-s {
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    padding:14px 18px; background:transparent;
+    color:var(--text-muted); font-family:'Noto Sans KR',sans-serif;
+    font-size:.84rem; border:1.5px solid var(--border);
+    border-radius:var(--radius-sm); cursor:pointer;
+    transition:border-color .15s, color .15s; white-space:nowrap;
+  }
+  .btn-s:hover { border-color:var(--border-strong); color:var(--text); }
+
+  .btn-ghost {
+    background:none; border:none; cursor:pointer;
+    font-family:'Noto Sans KR',sans-serif; font-size:.8rem;
+    color:var(--text-light); padding:8px 4px; transition:color .15s;
+  }
+  .btn-ghost:hover { color:var(--text-muted); }
+
+  /* ─── Flash progress bar ─── */
+  .fc-prog-row {
+    display:flex; align-items:center; gap:10px; margin-bottom:18px;
+  }
+  .fc-counter { font-size:.76rem; color:var(--text-muted); white-space:nowrap; font-weight:500; }
+  .fc-bar-wrap { flex:1; height:5px; background:var(--border); border-radius:3px; overflow:hidden; }
+  .fc-bar-fill { height:100%; background:var(--accent); border-radius:3px; transition:width .4s ease; }
+  .streak-pill {
+    display:flex; align-items:center; gap:4px;
+    font-size:.7rem; font-weight:700; color:var(--gold);
+    background:var(--gold-light); border-radius:20px; padding:4px 10px;
+    white-space:nowrap; border:1px solid rgba(160,118,18,.18);
   }
 
-  /* Blank inputs */
-  .blank-wrap { display: inline; }
-  .blank-input {
-    display: inline-block;
-    background: var(--bg);
-    border: none; border-bottom: 1.5px solid var(--border-strong);
-    color: var(--text);
-    font-family: 'Noto Serif KR', serif; font-size: 0.93rem;
-    padding: 1px 5px; outline: none;
-    transition: border-color 0.15s, background 0.15s;
-    min-width: 60px; text-align: center; vertical-align: baseline;
+  /* ─── Flash Card ─── */
+  .flashcard {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:18px; padding:26px 22px 22px;
+    box-shadow:var(--shadow-lg); animation:pop .28s ease;
+    margin-bottom:14px;
   }
-  .blank-input:focus { border-bottom-color: var(--accent); background: var(--accent-light); }
-  .blank-input.correct { border-bottom-color: var(--success); color: var(--success); background: var(--success-light); }
-  .blank-input.wrong   { border-bottom-color: var(--danger);  color: var(--danger);  background: var(--danger-light); }
+  .fc-mode-tag {
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:.62rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+    padding:4px 11px; border-radius:20px; margin-bottom:13px;
+  }
+  .fc-mode-tag.learn   { background:var(--accent-light); color:var(--accent); }
+  .fc-mode-tag.pract   { background:var(--gold-light);   color:var(--gold); }
+  .fc-mode-tag.recite  { background:var(--danger-light);  color:var(--danger); }
+  .fc-mode-tag.wrong   { background:var(--warn-light);    color:var(--warn); }
 
-  .feedback-chip {
-    display: inline-block; font-size: 0.72rem;
-    vertical-align: baseline; margin-left: 3px; white-space: nowrap;
-  }
-  .feedback-chip.ok  { color: var(--success); }
-  .feedback-chip.bad { color: var(--danger); }
-
-  /* Full verse */
-  .verse-full-block {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 6px; padding: 16px 20px; margin-bottom: 8px;
-  }
-  .verse-full-ref {
-    font-size: 0.66rem; font-weight: 500; letter-spacing: 0.12em;
-    color: var(--text-light); text-transform: uppercase; margin-bottom: 10px;
-  }
-  .verse-textarea {
-    width: 100%; background: var(--bg);
-    border: 1px solid var(--border); border-radius: 4px;
-    color: var(--text); font-family: 'Noto Serif KR', serif;
-    font-size: 0.9rem; line-height: 1.9; padding: 10px 13px;
-    resize: none; outline: none; min-height: 88px; transition: border-color 0.15s;
-  }
-  .verse-textarea:focus { border-color: var(--accent); }
-  .verse-textarea.correct { border-color: var(--success); background: var(--success-light); }
-  .verse-textarea.wrong   { border-color: var(--danger);  background: var(--danger-light); }
-  .verse-feedback { font-size: 0.78rem; margin-top: 7px; line-height: 1.7; }
-  .verse-feedback .vf-ok  { color: var(--success); }
-  .verse-feedback .vf-bad { color: var(--danger); }
-  .verse-feedback .vf-ans {
-    color: var(--text-muted); display: block; margin-top: 3px;
-    font-family: 'Noto Serif KR', serif; font-size: 0.82rem;
+  .fc-ref {
+    font-family:'Noto Serif KR',serif;
+    font-size:1.02rem; font-weight:600; color:var(--text); margin-bottom:16px;
   }
 
-  /* Score */
-  .inline-score-panel {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 8px; padding: 32px 28px; margin-top: 28px; text-align: center;
+  /* Learn: full text */
+  .fc-text {
+    font-family:'Noto Serif KR',serif;
+    font-size:.98rem; color:var(--text); line-height:2.3; word-break:keep-all;
   }
-  .iscore-num {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 2.8rem; font-weight: 600; color: var(--text); line-height: 1;
+  .fc-text .kw {
+    background:linear-gradient(to bottom,transparent 58%,rgba(58,102,72,.22) 58%);
+    font-weight:600; color:var(--accent);
   }
-  .iscore-sub { font-size: 0.82rem; color: var(--text-muted); margin-top: 8px; }
 
-  .action-row { display: flex; gap: 10px; margin-top: 28px; }
+  /* Self-check */
+  .self-check { display:flex; gap:10px; margin-top:14px; }
+  .btn-chk {
+    flex:1; padding:14px; border-radius:var(--radius-sm);
+    font-family:'Noto Serif KR',serif; font-size:.88rem; font-weight:600;
+    border:2px solid; cursor:pointer;
+    transition:all .15s; display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+  .btn-chk.ok  { border-color:var(--success); color:var(--success); background:var(--success-light); }
+  .btn-chk.ok:hover  { background:var(--success); color:#fff; }
+  .btn-chk.bad { border-color:var(--danger);  color:var(--danger);  background:var(--danger-light); }
+  .btn-chk.bad:hover { background:var(--danger); color:#fff; }
 
-  @media(max-width:600px) {
-    .card-grid { grid-template-columns: 1fr; gap: 8px; }
-    .scripture-block, .verse-full-block { padding: 14px 16px; }
-    .container { padding: 28px 16px 60px; }
+  /* Practice: blanks */
+  .fc-ptext {
+    font-family:'Noto Serif KR',serif;
+    font-size:.96rem; line-height:2.5; word-break:keep-all; color:var(--text);
+  }
+  .hint-ch {
+    display:inline-block; font-size:.64rem; font-weight:700;
+    color:var(--accent); vertical-align:baseline; margin-right:1px;
+    background:var(--accent-light); border-radius:3px; padding:0 2px;
+  }
+  .blank-inp {
+    display:inline-block; background:var(--surface2);
+    border:none; border-bottom:2px solid var(--border-strong);
+    color:var(--text); font-family:'Noto Serif KR',serif; font-size:.94rem;
+    padding:2px 6px; outline:none; min-width:60px;
+    text-align:center; vertical-align:baseline;
+    border-radius:3px 3px 0 0;
+    transition:border-color .15s, background .15s;
+  }
+  .blank-inp:focus { border-bottom-color:var(--accent); background:var(--accent-pale); }
+  .blank-inp.ok  { border-bottom-color:var(--success); color:var(--success); background:var(--success-light); }
+  .blank-inp.no  { border-bottom-color:var(--danger);  color:var(--danger);  background:var(--danger-light); animation:shake .32s ease; }
+
+  /* Recite textarea */
+  .recite-ta {
+    width:100%; background:var(--surface2);
+    border:1.5px solid var(--border); border-radius:9px;
+    color:var(--text); font-family:'Noto Serif KR',serif;
+    font-size:.95rem; line-height:2.1; padding:12px 14px;
+    resize:none; outline:none; min-height:100px;
+    transition:border-color .15s, background .15s;
+  }
+  .recite-ta:focus { border-color:var(--accent); background:var(--accent-pale); }
+  .recite-ta.ok  { border-color:var(--success); background:var(--success-light); }
+  .recite-ta.no  { border-color:var(--danger);  background:var(--danger-light); }
+  .ta-hint { font-size:.7rem; color:var(--text-light); margin-top:5px; }
+
+  .fc-fb {
+    margin-top:13px; padding:12px 14px; border-radius:9px;
+    font-size:.82rem; line-height:1.75; animation:fadeUp .22s ease;
+  }
+  .fc-fb.ok  { background:var(--success-light); color:var(--success); border:1px solid rgba(39,110,74,.2); }
+  .fc-fb.no  { background:var(--danger-light);  color:var(--danger);  border:1px solid rgba(178,46,46,.2); }
+  .fc-fb .fb-ans {
+    display:block; margin-top:7px; color:var(--text);
+    font-family:'Noto Serif KR',serif; font-size:.87rem; line-height:1.85;
+  }
+
+  /* Diff view */
+  .diff-block {
+    margin-top:11px; border-top:1px solid rgba(178,46,46,.18); padding-top:11px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .diff-section-label {
+    font-size:.6rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    margin-bottom:4px; opacity:.7;
+  }
+  .diff-line {
+    font-family:'Noto Serif KR',serif; font-size:.88rem;
+    line-height:2.1; word-break:keep-all; color:var(--text);
+  }
+  .dw-ok   { color:var(--text); }
+  .dw-miss {
+    background:rgba(184,104,32,.18); color:var(--warn);
+    border-radius:3px; padding:1px 4px; font-weight:700;
+  }
+  .dw-miss::before { content:'['; opacity:.5; font-weight:400; }
+  .dw-miss::after  { content:']'; opacity:.5; font-weight:400; }
+  .dw-extra {
+    background:rgba(178,46,46,.14); color:var(--danger);
+    text-decoration:line-through; border-radius:3px; padding:1px 4px;
+  }
+
+  /* Card bottom actions */
+  .fc-acts { display:flex; gap:10px; }
+  .fc-acts .btn-p { flex:1; }
+
+  /* ─── Results ─── */
+  .result-hero {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:18px; padding:32px 22px 26px; text-align:center;
+    box-shadow:var(--shadow-lg); animation:pop .36s ease; margin-bottom:18px;
+  }
+  .score-ring {
+    width:108px; height:108px; border-radius:50%;
+    background:conic-gradient(var(--accent) 0% var(--pct), var(--border) var(--pct));
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 18px; animation:glow 2s infinite;
+    box-shadow:inset 0 0 0 13px var(--surface);
+  }
+  .score-num {
+    font-family:'Noto Serif KR',serif;
+    font-size:1.5rem; font-weight:700; color:var(--text);
+  }
+  .result-msg {
+    font-family:'Noto Serif KR',serif;
+    font-size:1.18rem; font-weight:600; margin-bottom:6px;
+  }
+  .result-sub { font-size:.8rem; color:var(--text-muted); margin-bottom:8px; }
+
+  /* Wrong list */
+  .wrong-section { margin-bottom:18px; }
+  .wrong-sec-title {
+    font-size:.66rem; font-weight:600; letter-spacing:.14em;
+    color:var(--text-light); text-transform:uppercase; margin-bottom:10px;
+  }
+  .wrong-item {
+    background:var(--danger-light); border:1px solid rgba(178,46,46,.14);
+    border-radius:9px; padding:12px 14px; margin-bottom:8px;
+    animation:slideRight .25s ease;
+  }
+  .wi-ref { font-size:.7rem; font-weight:700; color:var(--danger); margin-bottom:5px; }
+  .wi-text { font-family:'Noto Serif KR',serif; font-size:.84rem; color:var(--text); line-height:1.85; }
+
+  .res-acts { display:flex; flex-direction:column; gap:10px; }
+
+  /* ─── Divider ─── */
+  hr { border:none; border-top:1px solid var(--border); margin:18px 0; }
+
+  /* ─── Responsive ─── */
+  @media(max-width:600px){
+    .mode-grid { grid-template-columns:1fr; }
+    .container { padding:18px 14px 72px; }
+    .flashcard { padding:18px 14px 16px; }
+    .result-hero { padding:24px 14px 20px; }
+    .fc-text, .fc-ptext { font-size:.91rem; }
   }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-label">요한계시록</div>
-  <h1>성구 암송</h1>
-  <p>말씀 10개 · 암송 훈련 프로그램</p>
+<!-- ═══ HEADER ═══ -->
+<div class="header" id="hdr">
+  <div class="hdr-back hidden" id="hdr-back" onclick="goBack()">←</div>
+  <div class="hdr-center">
+    <div class="hdr-eyebrow">요한계시록</div>
+    <div class="hdr-title" id="hdr-title">성구 암송</div>
+  </div>
+  <div class="hdr-spacer"></div>
 </div>
 
 <div class="container">
 
-  <!-- STEP 1 -->
-  <div id="step1" class="screen">
-    <div class="step-label">Step 1</div>
-    <div class="step-title">암송할 성구 묶음을 선택하세요</div>
-    <div class="card-grid">
-      <div class="sel-card" onclick="selectGroup(0,this)">
-        <div class="card-verses">
-          <div class="card-verse-item"><span class="cv-num">1</span><span class="cv-ref">계 1:1~3</span></div>
-          <div class="card-verse-item"><span class="cv-num">2</span><span class="cv-ref">계 3:12</span></div>
-          <div class="card-verse-item"><span class="cv-num">3</span><span class="cv-ref">계 7:1~4</span></div>
-          <div class="card-verse-item"><span class="cv-num">4</span><span class="cv-ref">계 10:10~11</span></div>
-        </div>
-      </div>
-      <div class="sel-card" onclick="selectGroup(1,this)">
-        <div class="card-verses">
-          <div class="card-verse-item"><span class="cv-num">5</span><span class="cv-ref">계 11:15</span></div>
-          <div class="card-verse-item"><span class="cv-num">6</span><span class="cv-ref">계 14:1~5</span></div>
-          <div class="card-verse-item"><span class="cv-num">7</span><span class="cv-ref">계 19:11~16</span></div>
-        </div>
-      </div>
-      <div class="sel-card" onclick="selectGroup(2,this)">
-        <div class="card-verses">
-          <div class="card-verse-item"><span class="cv-num">8</span><span class="cv-ref">계 20:4</span></div>
-          <div class="card-verse-item"><span class="cv-num">9</span><span class="cv-ref">계 21:1~2</span></div>
-          <div class="card-verse-item"><span class="cv-num">10</span><span class="cv-ref">계 22:18~19</span></div>
-        </div>
-      </div>
-    </div>
-    <button class="btn-primary" id="btn1" disabled onclick="showStep(2)">다음 단계 →</button>
-  </div>
-
-  <!-- STEP 2 -->
-  <div id="step2" class="screen hidden">
-    <div class="step-label">Step 2</div>
-    <div class="step-title">난이도를 선택하세요</div>
-    <div class="card-grid">
-      <div class="sel-card" onclick="selectDiff(0,this)">
-        <span class="diff-icon">🌱</span>
-        <span class="card-num">초급</span>
-        <div class="card-desc">일부 단어만 빈칸<br>핵심 단어를 채워요</div>
-      </div>
-      <div class="sel-card" onclick="selectDiff(1,this)">
-        <span class="diff-icon">🔥</span>
-        <span class="card-num">중급</span>
-        <div class="card-desc">절반 이상 빈칸<br>기억력을 시험해요</div>
-      </div>
-      <div class="sel-card" onclick="selectDiff(2,this)">
-        <span class="diff-icon">⚡</span>
-        <span class="card-num">고급</span>
-        <div class="card-desc">전체 직접 입력<br>완전 암송 도전!</div>
-      </div>
-    </div>
-    <div style="display:flex;gap:10px;">
-      <button class="btn-secondary" onclick="showStep(1)">← 이전</button>
-      <button class="btn-primary" id="btn2" disabled style="flex:1" onclick="startQuiz()">암송 시작</button>
+<!-- ═══ HOME ═══ -->
+<div id="s-home" class="screen">
+  <div class="sec-eyebrow">Step 1</div>
+  <div class="sec-title">암송할 성구를 선택하세요</div>
+  <div class="sel-toolbar">
+    <div class="sel-count-pill none" id="sel-count">선택 없음</div>
+    <div class="sel-toolbar-btns">
+      <button class="btn-tiny" onclick="selAll()">전체 선택</button>
+      <button class="btn-tiny" onclick="selNone()">선택 해제</button>
     </div>
   </div>
-
-  <!-- STEP 3 -->
-  <div id="step3" class="screen hidden">
-    <div class="quiz-header">
-      <div class="quiz-meta" id="quiz-title"></div>
-      <div class="badge" id="diff-badge"></div>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="prog" style="width:0%"></div></div>
-    <div id="quiz-body"></div>
-
-    <div class="action-row" id="action-pre">
-      <button class="btn-secondary" onclick="showStep(1)">← 처음으로</button>
-      <button class="btn-primary" style="flex:1" onclick="grade()">채점하기</button>
-    </div>
-
-    <div id="inline-score" class="inline-score-panel hidden">
-      <div class="iscore-num" id="iscore-num"></div>
-      <div class="iscore-sub" id="iscore-sub"></div>
-      <div style="display:flex;gap:10px;margin-top:24px;">
-        <button class="btn-secondary" onclick="showStep(1)">← 처음으로</button>
-        <button class="btn-primary" style="flex:1" onclick="retry()">다시 도전</button>
-      </div>
-    </div>
-  </div>
-
+  <div class="sc-list" id="sc-list"></div>
+  <button class="btn-p" id="btn-sel" disabled style="margin-top:16px" onclick="showMode()">모드 선택 →</button>
 </div>
 
+<!-- ═══ MODE ═══ -->
+<div id="s-mode" class="screen hidden">
+  <div class="sec-eyebrow">Step 2</div>
+  <div class="sec-title">학습 모드를 선택하세요</div>
+  <div class="mode-grid">
+    <div class="mode-card learn" id="mc-learn" onclick="go('learn')">
+      <div class="mc-icon">📖</div>
+      <div class="mc-name">읽기</div>
+      <div class="mc-desc">성구를 한 절씩<br>집중해서 읽어요</div>
+      <div class="mc-badge g">Stage 1</div>
+    </div>
+    <div class="mode-card pract" id="mc-pract" onclick="go('practice')">
+      <div class="mc-icon">✏️</div>
+      <div class="mc-name">연습</div>
+      <div class="mc-desc">첫 글자 힌트와 함께<br>빈칸을 채워요</div>
+      <div class="mc-badge au">Stage 2</div>
+    </div>
+    <div class="mode-card recite" id="mc-recite" onclick="go('recite')">
+      <div class="mc-icon">🎯</div>
+      <div class="mc-name">완전 암송</div>
+      <div class="mc-desc">절 번호만 보고<br>전체를 입력해요</div>
+      <div class="mc-badge r">Stage 3</div>
+    </div>
+    <div class="mode-card wrong off" id="mc-wrong" onclick="go('wrong')">
+      <div class="mc-icon">🔁</div>
+      <div class="mc-name">오답 복습</div>
+      <div class="mc-desc">틀린 절만 골라<br>집중 연습해요</div>
+      <div class="mc-badge w" id="wrong-badge">없음</div>
+    </div>
+  </div>
+  <button class="btn-s" style="width:100%" onclick="showHome()">← 이전</button>
+</div>
+
+<!-- ═══ FLASH ═══ -->
+<div id="s-flash" class="screen hidden">
+  <div class="fc-prog-row">
+    <div class="fc-counter" id="fc-counter">1 / 1</div>
+    <div class="fc-bar-wrap"><div class="fc-bar-fill" id="fc-bar" style="width:0%"></div></div>
+    <div class="streak-pill" id="streak-pill">🔥 0</div>
+  </div>
+  <div class="flashcard" id="card"></div>
+  <div class="fc-acts" id="card-acts"></div>
+</div>
+
+<!-- ═══ RESULT ═══ -->
+<div id="s-result" class="screen hidden">
+  <div class="result-hero">
+    <div class="score-ring" id="score-ring">
+      <div class="score-num" id="score-num"></div>
+    </div>
+    <div class="result-msg" id="result-msg"></div>
+    <div class="result-sub" id="result-sub"></div>
+  </div>
+  <div class="wrong-section hidden" id="wrong-sec">
+    <div class="wrong-sec-title">틀린 성구 목록</div>
+    <div id="wrong-items"></div>
+  </div>
+  <div class="res-acts">
+    <button class="btn-p" onclick="retry()">🔄 다시 도전</button>
+    <button class="btn-p" id="btn-wrong-retry" style="background:var(--warn);display:none" onclick="go('wrong')">🔁 오답만 복습</button>
+    <button class="btn-s" onclick="showMode()">← 모드 선택</button>
+    <button class="btn-ghost" onclick="showHome()">처음으로</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+
 <script>
+/* ═══════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════ */
 const SCRIPTURES = [
-  { num:1, ref:"계 1장 1~3절", verses:[
-    {v:"1절", text:"예수 그리스도의 계시라 이는 하나님이 그에게 주사 반드시 속히 될 일을 그 종들에게 보이시려고 그 천사를 그 종 요한에게 보내어 지시하신 것이라"},
-    {v:"2절", text:"요한은 하나님의 말씀과 예수 그리스도의 증거 곧 자기의 본 것을 다 증거하였느니라"},
-    {v:"3절", text:"이 예언의 말씀을 읽는 자와 듣는 자들과 그 가운데 기록한 것을 지키는 자들이 복이 있나니 때가 가까움이라"}
+  { num:1, ref:'계 1장 1~3절', verses:[
+    { v:'계 1장 1절', t:'예수 그리스도의 계시라 이는 하나님이 그에게 주사 반드시 속히 될 일을 그 종들에게 보이시려고 그 천사를 그 종 요한에게 보내어 지시하신 것이라' },
+    { v:'계 1장 2절', t:'요한은 하나님의 말씀과 예수 그리스도의 증거 곧 자기의 본 것을 다 증거하였느니라' },
+    { v:'계 1장 3절', t:'이 예언의 말씀을 읽는 자와 듣는 자들과 그 가운데 기록한 것을 지키는 자들이 복이 있나니 때가 가까움이라' }
   ]},
-  { num:2, ref:"계 3장 12절", verses:[
-    {v:"12절", text:"이기는 자는 내 하나님 성전에 기둥이 되게 하리니 그가 결코 다시 나가지 아니하리라 내가 하나님의 이름과 하나님의 성 곧 하늘에서 내 하나님께로부터 내려오는 새 예루살렘의 이름과 나의 새 이름을 그이 위에 기록하리라"}
+  { num:2, ref:'계 3장 12절', verses:[
+    { v:'계 3장 12절', t:'이기는 자는 내 하나님 성전에 기둥이 되게 하리니 그가 결코 다시 나가지 아니하리라 내가 하나님의 이름과 하나님의 성 곧 하늘에서 내 하나님께로부터 내려오는 새 예루살렘의 이름과 나의 새 이름을 그이 위에 기록하리라' }
   ]},
-  { num:3, ref:"계 7장 1~4절", verses:[
-    {v:"1절", text:"이 일 후에 내가 네 천사가 땅 네 모퉁이에 선 것을 보니 땅의 사방의 바람을 붙잡아 바람으로 하여금 땅에나 바다에나 각종 나무에 불지 못하게 하더라"},
-    {v:"2절", text:"또 보매 다른 천사가 살아 계신 하나님의 인을 가지고 해 돋는 데로부터 올라와서 땅과 바다를 해롭게 할 권세를 얻은 네 천사를 향하여 큰 소리로 외쳐"},
-    {v:"3절", text:"가로되 우리가 우리 하나님의 종들의 이마에 인치기까지 땅이나 바다나 나무나 해하지 말라 하더라"},
-    {v:"4절", text:"내가 인 맞은 자의 수를 들으니 이스라엘 자손의 각 지파 중에서 인 맞은 자들이 십사만 사천이니"}
+  { num:3, ref:'계 7장 1~4절', verses:[
+    { v:'계 7장 1절', t:'이 일 후에 내가 네 천사가 땅 네 모퉁이에 선 것을 보니 땅의 사방의 바람을 붙잡아 바람으로 하여금 땅에나 바다에나 각종 나무에 불지 못하게 하더라' },
+    { v:'계 7장 2절', t:'또 보매 다른 천사가 살아 계신 하나님의 인을 가지고 해 돋는 데로부터 올라와서 땅과 바다를 해롭게 할 권세를 얻은 네 천사를 향하여 큰 소리로 외쳐' },
+    { v:'계 7장 3절', t:'가로되 우리가 우리 하나님의 종들의 이마에 인치기까지 땅이나 바다나 나무나 해하지 말라 하더라' },
+    { v:'계 7장 4절', t:'내가 인 맞은 자의 수를 들으니 이스라엘 자손의 각 지파 중에서 인 맞은 자들이 십사만 사천이니' }
   ]},
-  { num:4, ref:"계 10장 10~11절", verses:[
-    {v:"10절", text:"내가 천사의 손에서 작은 책을 갖다 먹어버리니 내 입에는 꿀같이 다나 먹은 후에 내 배에서는 쓰게 되더라"},
-    {v:"11절", text:"저가 내게 말하기를 네가 많은 백성과 나라와 방언과 임금에게 다시 예언하여야 하리라 하더라"}
+  { num:4, ref:'계 10장 10~11절', verses:[
+    { v:'계 10장 10절', t:'내가 천사의 손에서 작은 책을 갖다 먹어버리니 내 입에는 꿀같이 다나 먹은 후에 내 배에서는 쓰게 되더라' },
+    { v:'계 10장 11절', t:'저가 내게 말하기를 네가 많은 백성과 나라와 방언과 임금에게 다시 예언하여야 하리라 하더라' }
   ]},
-  { num:5, ref:"계 11장 15절", verses:[
-    {v:"15절", text:"일곱째 천사가 나팔을 불매 하늘에 큰 음성들이 나서 가로되 세상 나라가 우리 주와 그 그리스도의 나라가 되어 그가 세세토록 왕 노릇 하시리로다 하니"}
+  { num:5, ref:'계 11장 15절', verses:[
+    { v:'계 11장 15절', t:'일곱째 천사가 나팔을 불매 하늘에 큰 음성들이 나서 가로되 세상 나라가 우리 주와 그 그리스도의 나라가 되어 그가 세세토록 왕 노릇 하시리로다 하니' }
   ]},
-  { num:6, ref:"계 14장 1~5절", verses:[
-    {v:"1절", text:"또 내가 보니 보라 어린양이 시온산에 섰고 그와 함께 십사만 사천이 섰는데 그 이마에 어린양의 이름과 그 아버지의 이름을 쓴 것이 있도다"},
-    {v:"2절", text:"내가 하늘에서 나는 소리를 들으니 많은 물 소리도 같고 큰 뇌성도 같은데 내가 들은 소리는 거문고 타는 자들의 그 거문고 타는 것 같더라"},
-    {v:"3절", text:"저희가 보좌와 네 생물과 장로들 앞에서 새 노래를 부르니 땅에서 구속함을 얻은 십사만 사천인 밖에는 능히 이 노래를 배울 자가 없더라"},
-    {v:"4절", text:"이 사람들은 여자로 더불어 더럽히지 아니하고 정절이 있는 자라 어린양이 어디로 인도하든지 따라가는 자며 사람 가운데서 구속함을 받아 처음 익은 열매로 하나님과 어린양에게 속한 자들이니"},
-    {v:"5절", text:"그 입에 거짓말이 없고 흠이 없는 자들이더라"}
+  { num:6, ref:'계 14장 1~5절', verses:[
+    { v:'계 14장 1절', t:'또 내가 보니 보라 어린양이 시온산에 섰고 그와 함께 십사만 사천이 섰는데 그 이마에 어린양의 이름과 그 아버지의 이름을 쓴 것이 있도다' },
+    { v:'계 14장 2절', t:'내가 하늘에서 나는 소리를 들으니 많은 물 소리도 같고 큰 뇌성도 같은데 내가 들은 소리는 거문고 타는 자들의 그 거문고 타는 것 같더라' },
+    { v:'계 14장 3절', t:'저희가 보좌와 네 생물과 장로들 앞에서 새 노래를 부르니 땅에서 구속함을 얻은 십사만 사천인 밖에는 능히 이 노래를 배울 자가 없더라' },
+    { v:'계 14장 4절', t:'이 사람들은 여자로 더불어 더럽히지 아니하고 정절이 있는 자라 어린양이 어디로 인도하든지 따라가는 자며 사람 가운데서 구속함을 받아 처음 익은 열매로 하나님과 어린양에게 속한 자들이니' },
+    { v:'계 14장 5절', t:'그 입에 거짓말이 없고 흠이 없는 자들이더라' }
   ]},
-  { num:7, ref:"계 19장 11~16절", verses:[
-    {v:"11절", text:"또 내가 하늘이 열린 것을 보니 보라 백마와 탄 자가 있으니 그 이름은 충신과 진실이라 그가 공의로 심판하며 싸우더라"},
-    {v:"12절", text:"그 눈이 불꽃 같고 그 머리에 많은 면류관이 있고 또 이름 쓴 것이 하나가 있으니 자기 밖에 아는 자가 없고"},
-    {v:"13절", text:"또 그가 피 뿌린 옷을 입었는데 그 이름은 하나님의 말씀이라 칭하더라"},
-    {v:"14절", text:"하늘에 있는 군대들이 희고 깨끗한 세마포를 입고 백마를 타고 그를 따르더라"},
-    {v:"15절", text:"그의 입에서 예리한 검이 나오니 그것으로 만국을 치겠고 친히 저희를 철장으로 다스리며 또 친히 하나님 곧 전능하신 이의 맹렬한 진노의 포도주 틀을 밟겠고"},
-    {v:"16절", text:"그 옷과 그 다리에 이름 쓴 것이 있으니 만왕의 왕이요 만주의 주라 하였더라"}
+  { num:7, ref:'계 19장 11~16절', verses:[
+    { v:'계 19장 11절', t:'또 내가 하늘이 열린 것을 보니 보라 백마와 탄 자가 있으니 그 이름은 충신과 진실이라 그가 공의로 심판하며 싸우더라' },
+    { v:'계 19장 12절', t:'그 눈이 불꽃 같고 그 머리에 많은 면류관이 있고 또 이름 쓴 것이 하나가 있으니 자기 밖에 아는 자가 없고' },
+    { v:'계 19장 13절', t:'또 그가 피 뿌린 옷을 입었는데 그 이름은 하나님의 말씀이라 칭하더라' },
+    { v:'계 19장 14절', t:'하늘에 있는 군대들이 희고 깨끗한 세마포를 입고 백마를 타고 그를 따르더라' },
+    { v:'계 19장 15절', t:'그의 입에서 예리한 검이 나오니 그것으로 만국을 치겠고 친히 저희를 철장으로 다스리며 또 친히 하나님 곧 전능하신 이의 맹렬한 진노의 포도주 틀을 밟겠고' },
+    { v:'계 19장 16절', t:'그 옷과 그 다리에 이름 쓴 것이 있으니 만왕의 왕이요 만주의 주라 하였더라' }
   ]},
-  { num:8, ref:"계 20장 4절", verses:[
-    {v:"4절", text:"또 내가 보좌들을 보니 거기 앉은 자들이 있어 심판하는 권세를 받았더라 또 내가 보니 예수의 증거와 하나님의 말씀을 인하여 목 베임을 받은 자의 영혼들과 또 짐승과 그의 우상에게 경배하지도 아니하고 이마와 손에 그의 표를 받지도 아니한 자들이 살아서 그리스도로 더불어 천년 동안 왕 노릇 하니"}
+  { num:8, ref:'계 20장 4절', verses:[
+    { v:'계 20장 4절', t:'또 내가 보좌들을 보니 거기 앉은 자들이 있어 심판하는 권세를 받았더라 또 내가 보니 예수의 증거와 하나님의 말씀을 인하여 목 베임을 받은 자의 영혼들과 또 짐승과 그의 우상에게 경배하지도 아니하고 이마와 손에 그의 표를 받지도 아니한 자들이 살아서 그리스도로 더불어 천년 동안 왕 노릇 하니' }
   ]},
-  { num:9, ref:"계 21장 1~2절", verses:[
-    {v:"1절", text:"또 내가 새 하늘과 새 땅을 보니 처음 하늘과 처음 땅이 없어졌고 바다도 다시 있지 않더라"},
-    {v:"2절", text:"또 내가 보매 거룩한 성 새 예루살렘이 하나님께로부터 하늘에서 내려오니 그 예비한 것이 신부가 남편을 위하여 단장한 것 같더라"}
+  { num:9, ref:'계 21장 1~2절', verses:[
+    { v:'계 21장 1절', t:'또 내가 새 하늘과 새 땅을 보니 처음 하늘과 처음 땅이 없어졌고 바다도 다시 있지 않더라' },
+    { v:'계 21장 2절', t:'또 내가 보매 거룩한 성 새 예루살렘이 하나님께로부터 하늘에서 내려오니 그 예비한 것이 신부가 남편을 위하여 단장한 것 같더라' }
   ]},
-  { num:10, ref:"계 22장 18~19절", verses:[
-    {v:"18절", text:"내가 이 책의 예언의 말씀을 듣는 모든 사람에게 증거하노니 만일 누구든지 이것들 외에 더하면 하나님이 이 책에 기록된 재앙들을 그에게 더하실 터이요"},
-    {v:"19절", text:"만일 누구든지 이 책의 예언의 말씀에서 제하여 버리면 하나님이 이 책에 기록된 생명나무와 및 거룩한 성에 참예함을 제하여 버리시리라"}
+  { num:10, ref:'계 22장 18~19절', verses:[
+    { v:'계 22장 18절', t:'내가 이 책의 예언의 말씀을 듣는 모든 사람에게 증거하노니 만일 누구든지 이것들 외에 더하면 하나님이 이 책에 기록된 재앙들을 그에게 더하실 터이요' },
+    { v:'계 22장 19절', t:'만일 누구든지 이 책의 예언의 말씀에서 제하여 버리면 하나님이 이 책에 기록된 생명나무와 및 거룩한 성에 참예함을 제하여 버리시리라' }
   ]}
 ];
 
-const GROUPS = [[0,1,2,3],[4,5,6],[7,8,9]];
-let selGroup = -1, selDiff = -1;
+/* ═══════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════ */
+let selSet = new Set();   // selected SCRIPTURES indices (0-based)
+let mode = '';
+let verses = [];          // [{scRef, v, t}]
+let cur = 0;
+let streak = 0;
+let wrongRefs = [];
+let graded = false;
 
-function showStep(n) {
-  document.querySelectorAll('.screen').forEach((el,i) => el.classList.toggle('hidden', i !== n-1));
-}
-function selectGroup(idx, el) {
-  selGroup = idx;
-  document.querySelectorAll('#step1 .sel-card').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('btn1').disabled = false;
-}
-function selectDiff(idx, el) {
-  selDiff = idx;
-  document.querySelectorAll('#step2 .sel-card').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('btn2').disabled = false;
-}
+/* ═══════════════════════════════════════════
+   STORAGE  (per-scripture + global wrong pool)
+═══════════════════════════════════════════ */
+const skSc  = num => `sgam-sc-${num}`;   // per-scripture stats
+const SK_WR = 'sgam-wr';                 // global wrong-verse pool
 
-function tokenize(text) { return text.split(/\s+/).filter(w => w.length > 0); }
-function pickBlanks(words, diffLevel) {
-  const ratio = diffLevel === 0 ? 0.28 : 0.58;
-  const count = Math.max(1, Math.round(words.length * ratio));
-  const shuffled = words.map((_,i) => i).sort(() => Math.random() - 0.5);
-  return new Set(shuffled.slice(0, count));
+function loadSc(num) {
+  try { return JSON.parse(localStorage.getItem(skSc(num))) || { n:0, best:null }; }
+  catch { return { n:0, best:null }; }
 }
-
-function buildBlankVerse(sc, vi, verse, diffLevel) {
-  const words  = tokenize(verse.text);
-  const blanks = pickBlanks(words, diffLevel);
-  const segments = [];
-  let i = 0;
-  while (i < words.length) {
-    if (blanks.has(i)) {
-      const g = []; while (i < words.length && blanks.has(i)) g.push(words[i++]);
-      segments.push({ type:'blank', words:g });
-    } else {
-      const g = []; while (i < words.length && !blanks.has(i)) g.push(words[i++]);
-      segments.push({ type:'text', words:g });
-    }
-  }
-  let inner = '';
-  segments.forEach((seg, si) => {
-    if (seg.type === 'text') {
-      const esc = seg.words.join(' ').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-      if (si > 0) inner += ' ';
-      inner += esc;
-      if (si < segments.length - 1) inner += ' ';
-    } else {
-      const ans = seg.words.join(' ');
-      const w   = Math.max(60, ans.length * 16);
-      inner += `<span class="blank-wrap"><input type="text" class="blank-input" data-si="${sc.num}" data-vi="${vi}" data-answer="${ans.replace(/"/g,'&quot;')}" style="width:${w}px" autocomplete="off" spellcheck="false"></span>`;
-    }
-  });
-  return `<div class="scripture-block" data-si="${sc.num}" data-vi="${vi}">
-    <div class="scripture-ref">${verse.v}</div>
-    <div class="scripture-text">${inner}</div>
-  </div>`;
+function saveSc(num, d) {
+  try { localStorage.setItem(skSc(num), JSON.stringify(d)); } catch {}
+}
+function loadWr() {
+  try { return JSON.parse(localStorage.getItem(SK_WR)) || []; } catch { return []; }
+}
+function saveWr(arr) {
+  try { localStorage.setItem(SK_WR, JSON.stringify(arr)); } catch {}
 }
 
-function buildFullVerse(sc, vi, verse) {
-  return `<div class="verse-full-block" data-si="${sc.num}" data-vi="${vi}">
-    <div class="verse-full-ref">${verse.v}</div>
-    <textarea class="verse-textarea" data-si="${sc.num}" data-vi="${vi}" data-answer="${verse.text.replace(/"/g,'&quot;')}" rows="3" autocomplete="off" spellcheck="false" placeholder="이 절을 전부 직접 입력하세요…"></textarea>
-  </div>`;
+/* ═══════════════════════════════════════════
+   INIT / SCREENS
+═══════════════════════════════════════════ */
+function screens(id) {
+  ['s-home','s-mode','s-flash','s-result'].forEach(s =>
+    document.getElementById(s).classList.toggle('hidden', s !== id));
+}
+function setHdr(title, back) {
+  document.getElementById('hdr-title').textContent = title;
+  document.getElementById('hdr-back').classList.toggle('hidden', !back);
 }
 
-function startQuiz() {
-  showStep(3);
-  document.getElementById('action-pre').classList.remove('hidden');
-  document.getElementById('inline-score').classList.add('hidden');
-
-  const groupIndices = GROUPS[selGroup];
-  const diffNames    = ['초급','중급','고급'];
-  const groupLabels  = ['1~4번','5~7번','8~10번'];
-  document.getElementById('quiz-title').textContent = `성구 ${groupLabels[selGroup]}`;
-  document.getElementById('diff-badge').textContent  = diffNames[selDiff];
-
-  let html = '';
-  groupIndices.forEach(si => {
-    const sc = SCRIPTURES[si];
-    html += `<div class="scripture-group">
-      <div class="scripture-title">
-        <span class="scripture-title-num">성구 ${sc.num}</span>
-        <span class="scripture-title-ref">${sc.ref}</span>
-      </div>`;
-    sc.verses.forEach((verse, vi) => {
-      html += selDiff === 2 ? buildFullVerse(sc, vi, verse) : buildBlankVerse(sc, vi, verse, selDiff);
-    });
-    html += `</div>`;
-  });
-  document.getElementById('quiz-body').innerHTML = html;
-  document.getElementById('prog').style.width = '0%';
-  document.querySelectorAll('.blank-input, .verse-textarea').forEach(el => el.addEventListener('input', updateProgress));
-  updateProgress();
+function showHome() {
+  selSet = new Set();
+  renderScList();
+  updateSelUI();
+  screens('s-home');
+  setHdr('성구 암송', false);
 }
-
-function updateProgress() {
-  const all    = document.querySelectorAll('.blank-input, .verse-textarea');
-  const filled = [...all].filter(el => el.value.trim().length > 0).length;
-  document.getElementById('prog').style.width = (all.length ? Math.round(filled / all.length * 100) : 0) + '%';
-}
-
-function retry() { startQuiz(); }
-function normalize(str) { return str.trim().replace(/\s+/g, ' '); }
-
-function grade() {
-  let correct = 0, total = 0;
-  if (selDiff === 2) {
-    document.querySelectorAll('.verse-textarea').forEach(ta => {
-      const answer    = ta.getAttribute('data-answer').replace(/&quot;/g, '"');
-      const isCorrect = normalize(ta.value) === normalize(answer);
-      total++; if (isCorrect) correct++;
-      ta.readOnly = true;
-      ta.classList.toggle('correct', isCorrect);
-      ta.classList.toggle('wrong',   !isCorrect);
-      const prev = ta.parentElement.querySelector('.verse-feedback');
-      if (prev) prev.remove();
-      const fb = document.createElement('div');
-      fb.className = 'verse-feedback';
-      fb.innerHTML = isCorrect
-        ? '<span class="vf-ok">✓ 정확합니다</span>'
-        : `<span class="vf-bad">✗ 틀렸습니다</span><span class="vf-ans">정답: ${escHtml(answer)}</span>`;
-      ta.parentElement.appendChild(fb);
-    });
+function goBack() {
+  if (!document.getElementById('s-flash').classList.contains('hidden')) {
+    if (confirm('학습을 중단하고 모드 선택으로 돌아갈까요?')) showMode();
+  } else if (!document.getElementById('s-mode').classList.contains('hidden')) {
+    showHome();
   } else {
-    document.querySelectorAll('.blank-input').forEach(inp => {
-      const answer    = inp.getAttribute('data-answer').replace(/&quot;/g, '"');
-      const isCorrect = normalize(inp.value) === normalize(answer);
-      total++; if (isCorrect) correct++;
-      inp.readOnly = true;
-      inp.classList.toggle('correct', isCorrect);
-      inp.classList.toggle('wrong',   !isCorrect);
-      const oldChip = inp.parentElement.nextElementSibling;
-      if (oldChip && oldChip.classList.contains('feedback-chip')) oldChip.remove();
-      const chip = document.createElement('span');
-      chip.className = 'feedback-chip ' + (isCorrect ? 'ok' : 'bad');
-      chip.textContent = isCorrect ? ' ✓' : ` ✗ ${answer}`;
-      inp.parentElement.insertAdjacentElement('afterend', chip);
-    });
+    showMode();
   }
-  const score = total ? Math.round(correct / total * 100) : 0;
-  const msg   = score === 100 ? '완벽 암송!' : score >= 80 ? '훌륭해요!' : score >= 60 ? '잘 하고 있어요!' : '더 연습해봐요';
-  document.getElementById('iscore-num').textContent = `${score}점`;
-  document.getElementById('iscore-sub').textContent = `${total}개 중 ${correct}개 정답 · ${msg}`;
-  document.getElementById('action-pre').classList.add('hidden');
-  document.getElementById('inline-score').classList.remove('hidden');
-  document.getElementById('inline-score').scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+function showMode() {
+  if (selSet.size === 0) return;
+  // Wrong mode: check if any saved wrong verses belong to selected scriptures
+  const allVerses = buildVerses(false);
+  const savedWr = loadWr();
+  const filteredWr = savedWr.filter(ref => allVerses.some(v => v.v === ref));
+  const hasWrong = filteredWr.length > 0;
+  const wc = document.getElementById('mc-wrong');
+  wc.classList.toggle('off', !hasWrong);
+  document.getElementById('wrong-badge').textContent = hasWrong ? `${filteredWr.length}개` : '없음';
+  // Build header label
+  const refs = [...selSet].map(i => `${SCRIPTURES[i].num}번`).join('·');
+  screens('s-mode');
+  setHdr(`성구 ${refs}`, true);
 }
 
-function escHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+/* ═══════════════════════════════════════════
+   SCRIPTURE LIST (multi-select)
+═══════════════════════════════════════════ */
+function renderScList() {
+  const el = document.getElementById('sc-list');
+  el.innerHTML = SCRIPTURES.map((sc, i) => {
+    const p = loadSc(sc.num);
+    const scoreHtml = p.best !== null
+      ? `<div class="sc-score">${p.best}점</div><div class="sc-tries">${p.n}회</div>`
+      : `<div class="sc-score none">미완료</div>`;
+    const preview = sc.verses[0].t.slice(0, 26) + (sc.verses[0].t.length > 26 ? '…' : '');
+    return `<div class="sc-card" id="sc-card-${i}" onclick="toggleSc(${i})">
+      <div class="sc-num-badge" id="sc-badge-${i}">${sc.num}</div>
+      <div class="sc-info">
+        <div class="sc-ref">${esc(sc.ref)}</div>
+        <div class="sc-preview">${esc(preview)}</div>
+      </div>
+      <div class="sc-prog">${scoreHtml}</div>
+      <div class="sc-check" id="sc-chk-${i}"></div>
+    </div>`;
+  }).join('');
 }
+
+function toggleSc(i) {
+  if (selSet.has(i)) selSet.delete(i);
+  else selSet.add(i);
+  const card  = document.getElementById(`sc-card-${i}`);
+  const badge = document.getElementById(`sc-badge-${i}`);
+  const chk   = document.getElementById(`sc-chk-${i}`);
+  const on = selSet.has(i);
+  card.classList.toggle('sel', on);
+  chk.textContent  = on ? '✓' : '';
+  updateSelUI();
+}
+function selAll()  { SCRIPTURES.forEach((_, i) => selSet.add(i));    refreshAllCards(); }
+function selNone() { selSet.clear();                                   refreshAllCards(); }
+function refreshAllCards() {
+  SCRIPTURES.forEach((_, i) => {
+    const on = selSet.has(i);
+    document.getElementById(`sc-card-${i}`).classList.toggle('sel', on);
+    document.getElementById(`sc-chk-${i}`).textContent = on ? '✓' : '';
+  });
+  updateSelUI();
+}
+function updateSelUI() {
+  const cnt = selSet.size;
+  const pill = document.getElementById('sel-count');
+  if (cnt === 0) {
+    pill.textContent = '선택 없음'; pill.classList.add('none');
+  } else {
+    const totalVerses = [...selSet].reduce((s, i) => s + SCRIPTURES[i].verses.length, 0);
+    pill.textContent = `${cnt}개 성구 · ${totalVerses}절 선택됨`;
+    pill.classList.remove('none');
+  }
+  document.getElementById('btn-sel').disabled = cnt === 0;
+}
+
+/* ═══════════════════════════════════════════
+   START
+═══════════════════════════════════════════ */
+function buildVerses(wrongOnly) {
+  const all = [];
+  // Sort selected indices to maintain scripture order
+  [...selSet].sort((a, b) => a - b).forEach(i => {
+    const sc = SCRIPTURES[i];
+    sc.verses.forEach(vs => all.push({ scNum: sc.num, scRef: sc.ref, v: vs.v, t: vs.t }));
+  });
+  if (wrongOnly) {
+    const savedWr = loadWr();
+    return all.filter(a => savedWr.includes(a.v));
+  }
+  return all;
+}
+
+function go(m) {
+  const mcId = m === 'practice' ? 'mc-pract' : `mc-${m}`;
+  if (document.getElementById(mcId).classList.contains('off')) return;
+  mode = m;
+  wrongRefs = [];
+  streak = 0;
+  cur = 0;
+  graded = false;
+  verses = buildVerses(m === 'wrong');
+  if (!verses.length) return;
+  const lbl = { learn:'읽기', practice:'연습', recite:'완전 암송', wrong:'오답 복습' };
+  const refs = [...selSet].sort((a,b)=>a-b).map(i => `${SCRIPTURES[i].num}번`).join('·');
+  setHdr(`성구 ${refs} — ${lbl[m]}`, true);
+  screens('s-flash');
+  renderCard();
+}
+
+function retry() { go(mode); }
+
+/* ═══════════════════════════════════════════
+   CARD RENDERING
+═══════════════════════════════════════════ */
+function renderCard() {
+  graded = false;
+  const total = verses.length;
+  document.getElementById('fc-counter').textContent = `${cur + 1} / ${total}`;
+  document.getElementById('fc-bar').style.width = `${Math.round(cur / total * 100)}%`;
+  document.getElementById('streak-pill').textContent = `🔥 ${streak}`;
+
+  const card = document.getElementById('card');
+  const acts = document.getElementById('card-acts');
+  const vrs = verses[cur];
+
+  if (mode === 'learn')    renderLearn(card, acts, vrs);
+  else if (mode === 'practice') renderPractice(card, acts, vrs);
+  else renderRecite(card, acts, vrs);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ─── LEARN ─── */
+function renderLearn(card, acts, vrs) {
+  const words = vrs.t.split(/\s+/);
+  const html = words.map((w, i) => {
+    const bare = w.replace(/[,.!?:]/g, '');
+    const isKey = bare.length >= 3 && (bare.length >= 4 || i % 3 === 1);
+    return isKey ? `<span class="kw">${esc(w)}</span>` : esc(w);
+  }).join(' ');
+
+  card.innerHTML = `
+    <div class="fc-mode-tag learn">📖 읽기 — 천천히 읽어보세요</div>
+    <div class="fc-ref">${esc(vrs.v)}</div>
+    <div class="fc-text">${html}</div>
+  `;
+  acts.innerHTML = `
+    <div class="self-check" style="width:100%">
+      <button class="btn-chk bad" onclick="learnSelf(false)">🙁 몰랐어요</button>
+      <button class="btn-chk ok"  onclick="learnSelf(true)">😊 알았어요</button>
+    </div>`;
+}
+function learnSelf(knew) {
+  if (!knew) { wrongRefs.push(verses[cur].v); streak = 0; }
+  else streak++;
+  next();
+}
+
+/* ─── PRACTICE ─── */
+function renderPractice(card, acts, vrs) {
+  const words = vrs.t.split(/\s+/);
+  const bs = pickBlanks(words.length, 0.38);
+  let inner = '';
+  words.forEach((w, i) => {
+    if (i > 0) inner += ' ';
+    if (bs.has(i)) {
+      const hint = w.charAt(0);
+      const id = `bi${i}`;
+      inner += `<span class="hint-ch">${esc(hint)}</span><input id="${id}" type="text" class="blank-inp" data-ans="${esc(w)}" style="width:${Math.max(56, w.length * 17)}px" autocomplete="off" spellcheck="false">`;
+    } else {
+      inner += esc(w);
+    }
+  });
+
+  card.innerHTML = `
+    <div class="fc-mode-tag pract">✏️ 연습 — 첫 글자를 참고해 채워보세요</div>
+    <div class="fc-ref">${esc(vrs.v)}</div>
+    <div class="fc-ptext">${inner}</div>
+  `;
+  acts.innerHTML = `
+    <button class="btn-s" onclick="skipCard()">건너뛰기</button>
+    <button class="btn-p" onclick="gradePract()">확인 →</button>`;
+
+  card.querySelectorAll('.blank-inp').forEach(inp =>
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') gradePract(); }));
+  const first = card.querySelector('.blank-inp');
+  if (first) setTimeout(() => first.focus(), 80);
+}
+
+function pickBlanks(len, r) {
+  const cnt = Math.max(1, Math.round(len * r));
+  const arr = Array.from({ length: len }, (_, i) => i);
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return new Set(arr.slice(0, cnt));
+}
+
+function gradePract() {
+  if (graded) { next(); return; }
+  graded = true;
+  const card = document.getElementById('card');
+  const inps = card.querySelectorAll('.blank-inp');
+  let allOk = true;
+  inps.forEach(inp => {
+    const ok = norm(inp.value) === norm(inp.getAttribute('data-ans'));
+    inp.readOnly = true;
+    inp.classList.toggle('ok', ok);
+    inp.classList.toggle('no', !ok);
+    if (!ok) { allOk = false; inp.value = inp.getAttribute('data-ans'); }
+  });
+  const fb = document.createElement('div');
+  fb.className = 'fc-fb ' + (allOk ? 'ok' : 'no');
+  fb.textContent = allOk ? '✓ 완벽해요! 다음으로 넘어가세요.' : '✗ 틀린 부분을 확인하세요. 정답을 눈에 새겨보세요.';
+  card.appendChild(fb);
+  if (allOk) streak++;
+  else { streak = 0; wrongRefs.push(verses[cur].v); }
+  document.getElementById('card-acts').innerHTML =
+    `<button class="btn-p" onclick="next()">다음 →</button>`;
+}
+
+/* ─── RECITE / WRONG ─── */
+function renderRecite(card, acts, vrs) {
+  const tag = mode === 'wrong'
+    ? '<div class="fc-mode-tag wrong">🔁 오답 복습 — 처음부터 전부 입력해보세요</div>'
+    : '<div class="fc-mode-tag recite">🎯 완전 암송 — 아무 힌트 없이 도전!</div>';
+  card.innerHTML = `
+    ${tag}
+    <div class="fc-ref">${esc(vrs.v)}</div>
+    <textarea id="recite-ta" class="recite-ta" rows="4" autocomplete="off" spellcheck="false" placeholder="이 절을 전부 입력하세요…"></textarea>
+    <div class="ta-hint">Ctrl+Enter 로 확인</div>
+  `;
+  acts.innerHTML = `
+    <button class="btn-s" onclick="skipCard()">건너뛰기</button>
+    <button class="btn-p" onclick="gradeRecite()">확인 →</button>`;
+  const ta = document.getElementById('recite-ta');
+  ta.addEventListener('keydown', e => { if (e.key === 'Enter' && e.ctrlKey) gradeRecite(); });
+  setTimeout(() => ta.focus(), 80);
+}
+
+/* LCS-based word diff
+   ops: [{type:'ok'|'miss'|'extra', word, inp}] */
+function buildDiff(inputStr, ansStr) {
+  const iw = inputStr.trim().split(/\s+/).filter(w => w);
+  const aw = ansStr.trim().split(/\s+/).filter(w => w);
+  const m = iw.length, n = aw.length;
+
+  // DP table
+  const dp = Array.from({length: m+1}, () => new Array(n+1).fill(0));
+  for (let i = 1; i <= m; i++)
+    for (let j = 1; j <= n; j++)
+      dp[i][j] = normNoSpace(iw[i-1]) === normNoSpace(aw[j-1])
+        ? dp[i-1][j-1] + 1
+        : Math.max(dp[i-1][j], dp[i][j-1]);
+
+  // Backtrack
+  const ops = [];
+  let i = m, j = n;
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0 && normNoSpace(iw[i-1]) === normNoSpace(aw[j-1])) {
+      ops.unshift({ type:'ok',    word: aw[j-1], inp: iw[i-1] }); i--; j--;
+    } else if (j > 0 && (i === 0 || dp[i][j-1] >= dp[i-1][j])) {
+      ops.unshift({ type:'miss',  word: aw[j-1] }); j--;          // 빠진 단어
+    } else {
+      ops.unshift({ type:'extra', inp:  iw[i-1] }); i--;          // 잘못 입력한 단어
+    }
+  }
+  return ops;
+}
+
+function gradeRecite() {
+  if (graded) { next(); return; }
+  graded = true;
+  const ta = document.getElementById('recite-ta');
+  const ans = verses[cur].t;
+  const exactOk   = norm(ta.value) === norm(ans);
+  const contentOk = normNoSpace(ta.value) === normNoSpace(ans);
+  const ok = contentOk;
+
+  ta.readOnly = true;
+  ta.classList.toggle('ok', ok);
+  ta.classList.toggle('no', !ok);
+
+  const fb = document.createElement('div');
+  fb.className = 'fc-fb ' + (ok ? 'ok' : 'no');
+
+  if (exactOk) {
+    fb.innerHTML = '✓ 완벽합니다!';
+  } else if (contentOk) {
+    fb.innerHTML = '✓ 정답입니다 <span style="font-size:.78rem;font-weight:400;opacity:.75">(띄어쓰기 차이 있음)</span>';
+  } else {
+    // 오답: diff 표시
+    const ops = buildDiff(ta.value, ans);
+
+    // 내 입력 줄 (extra=취소선빨강, miss=___회색, ok=정상)
+    const myLine = ops.map(op => {
+      if (op.type === 'ok')    return `<span class="dw-ok">${esc(op.inp)}</span>`;
+      if (op.type === 'extra') return `<span class="dw-extra">${esc(op.inp)}</span>`;
+      if (op.type === 'miss')  return `<span style="color:var(--border-strong)">___</span>`;
+    }).join(' ');
+
+    // 정답 줄 (miss=주황강조, ok=정상, extra는 정답에 없음)
+    const ansLine = ops.filter(op => op.type !== 'extra').map(op => {
+      if (op.type === 'ok')   return `<span class="dw-ok">${esc(op.word)}</span>`;
+      if (op.type === 'miss') return `<span class="dw-miss">${esc(op.word)}</span>`;
+    }).join(' ');
+
+    fb.innerHTML = `✗ 틀렸습니다
+      <div class="diff-block">
+        <div>
+          <div class="diff-section-label">내 입력</div>
+          <div class="diff-line">${myLine}</div>
+        </div>
+        <div>
+          <div class="diff-section-label">정답</div>
+          <div class="diff-line">${ansLine}</div>
+        </div>
+      </div>`;
+  }
+
+  document.getElementById('card').appendChild(fb);
+  if (ok) streak++;
+  else { streak = 0; wrongRefs.push(verses[cur].v); }
+  document.getElementById('card-acts').innerHTML =
+    `<button class="btn-p" onclick="next()">다음 →</button>`;
+}
+
+function skipCard() {
+  wrongRefs.push(verses[cur].v);
+  streak = 0;
+  next();
+}
+function next() {
+  cur++;
+  if (cur >= verses.length) showResult();
+  else renderCard();
+}
+
+/* ═══════════════════════════════════════════
+   RESULT
+═══════════════════════════════════════════ */
+function showResult() {
+  const total = verses.length;
+  const uniqWrong = [...new Set(wrongRefs)];
+  const correct = total - uniqWrong.length;
+  const score = total ? Math.round(correct / total * 100) : 100;
+
+  // Save per-scripture stats & update global wrong pool
+  if (mode !== 'learn') {
+    // Update stats for each selected scripture
+    [...selSet].forEach(i => {
+      const sc = SCRIPTURES[i];
+      const scVerses = verses.filter(v => v.scNum === sc.num);
+      if (scVerses.length === 0) return;
+      const scWrong = scVerses.filter(v => uniqWrong.includes(v.v)).length;
+      const scCorrect = scVerses.length - scWrong;
+      const scScore = Math.round(scCorrect / scVerses.length * 100);
+      const p = loadSc(sc.num);
+      p.n = (p.n || 0) + 1;
+      if (p.best === null || scScore > p.best) p.best = scScore;
+      saveSc(sc.num, p);
+    });
+    // Update global wrong pool: replace refs belonging to this session's scriptures
+    const sessionRefs = verses.map(v => v.v);
+    const prevWr = loadWr().filter(r => !sessionRefs.includes(r)); // keep other scriptures' wrongs
+    saveWr([...prevWr, ...uniqWrong]);
+  }
+
+  // Score ring
+  const ring = document.getElementById('score-ring');
+  ring.style.setProperty('--pct', score + '%');
+  document.getElementById('score-num').textContent = score + '점';
+
+  const msgs = [[100,'🏆 완벽 암송!'],[90,'🎉 훌륭해요!'],[75,'👍 잘 하고 있어요!'],[50,'💪 조금만 더!'],[0,'🌱 계속 연습해요']];
+  document.getElementById('result-msg').textContent = msgs.find(m => score >= m[0])[1];
+  document.getElementById('result-sub').textContent = mode === 'learn'
+    ? `${total}절 중 ${correct}절을 알고 있어요 · 스트릭 ${streak}`
+    : `${total}절 중 ${correct}절 정답 · 스트릭 ${streak}`;
+
+  // Wrong list
+  const ws = document.getElementById('wrong-sec');
+  const wi = document.getElementById('wrong-items');
+  if (uniqWrong.length > 0) {
+    ws.classList.remove('hidden');
+    wi.innerHTML = uniqWrong.map(ref => {
+      const vr = verses.find(v => v.v === ref);
+      return vr ? `<div class="wrong-item"><div class="wi-ref">${esc(vr.v)}</div><div class="wi-text">${esc(vr.t)}</div></div>` : '';
+    }).join('');
+  } else {
+    ws.classList.add('hidden');
+  }
+
+  // Wrong retry button
+  const wrBtn = document.getElementById('btn-wrong-retry');
+  wrBtn.style.display = (uniqWrong.length > 0 && mode !== 'wrong') ? 'flex' : 'none';
+
+  screens('s-result');
+  setHdr('결과', true);
+}
+
+/* ═══════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════ */
+function norm(s) { return s.trim().replace(/\s+/g, ' '); }
+function normNoSpace(s) { return s.replace(/\s+/g, ''); }  // 띄어쓰기 무시
+function esc(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ─── BOOT ─── */
+showHome();
 </script>
 </body>
 </html>
